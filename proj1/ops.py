@@ -98,10 +98,14 @@ def median(orig, kernel_size=3):
     return ret.reshape(orig.shape)
 
 
-edge_kernels = {'Sobel':sobel, 
- 'Roberts':roberts, 
- 'Prewitt':prewitt}
-mean_kernels = {'Gaussian':gaussian, 
- 'Mean':mean, 
- 'Median':median}
+edge_kernels = {
+    'Sobel':sobel, 
+    'Roberts':roberts, 
+    'Prewitt':prewitt
+}
+mean_kernels = {
+    'Gaussian':gaussian, 
+    'Mean':mean, 
+    'Median':median
+}
 # okay decompiling ops.cpython-37.pyc
