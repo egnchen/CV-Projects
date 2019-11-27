@@ -1,13 +1,18 @@
 # Proj1
 
+> Author: 陈奕君
+>
+> Student No: 517021910387
+
 > Write your own code to realize two-dimension convolution and some image filters.
 > Requirement：
+>
 > * Program to realize the convolution operation and the next filters
 > * Roberts operator; Prewitt operator; Sobel operator;
 > * Gaussian filter, mean filter and Median filter
 > * Kernal size and sigma adjustable
 > * Design proper UI and display I/O images
-> 
+>
 > language：python or C++
 
 ## Usage
