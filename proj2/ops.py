@@ -109,12 +109,11 @@ def conditional_dilation(marker, mask, kernel=binary_kernel, max_itecnt=50):
         for i in range(0, marker.shape[0]):
             for j in range(0, marker.shape[1]):
                 if pimg[i + ew, j + ew]:
-                    ret[i:i + sz, j:j + sz] += (ret[i:i + sz, j:j + sz] == 0) * kernel * pimg[i + ew, j + ew]
+                    ret[i:i + sz, j:j + sz] += (ret[i:i + sz, j:j + sz] == 0) * kernel
         ret = mask * ret
         if np.all(pimg == ret) or itecnt > max_itecnt:
             break
     return ret[ew:-ew, ew:-ew]
-
 
 def g_dilation(img_, kernel=binary_kernel):
     assert(kernel.shape[0] == kernel.shape[1])
@@ -149,7 +148,7 @@ def g_closing(img_, kernel=binary_kernel):
     return g_erosion(g_dilation(img_, kernel), kernel)
 
 # morphological reconstruction
-def g_reconstruct(img_, kernel=gray_kernel, ite_count=10):
+def g_reconstruct_dilation(img_, kernel=gray_kernel, ite_count=10):
     img = img_.copy()
     for _ in range(ite_count):
         img = g_erosion(img, kernel)
@@ -158,6 +157,20 @@ def g_reconstruct(img_, kernel=gray_kernel, ite_count=10):
     while True and i > 0:
         pimg = img.copy()
         img = np.minimum(img_, g_dilation(img, kernel))
+        if np.all(img == pimg):
+            break
+        i = i - 1
+    return img
+    
+def g_reconstruct_erosion(img_, kernel=gray_kernel, ite_count=10):
+    img = img_.copy()
+    for _ in range(ite_count):
+        img = g_dilation(img, kernel)
+    # reconstruct the image
+    i = 25
+    while True and i > 0:
+        pimg = img.copy()
+        img = np.maximum(img_, g_erosion(img, kernel))
         if np.all(img == pimg):
             break
         i = i - 1
@@ -190,7 +203,8 @@ operations = {
     "gray image erosion": g_erosion,
     "gray image opening": g_opening,
     "gray image closing": g_closing,
-    "gray image reconstruction": g_reconstruct,
+    "gray image reconstruction(OBR)": g_reconstruct_dilation,
+    "gray image reconstruction(CBR)": g_reconstruct_erosion,
     "gray image edge detection(external)": gradient_external,
     "gray image edge detection(internal)": gradient_internal,
     "gray image edge detection(surrounding)": gradient_surrounding
