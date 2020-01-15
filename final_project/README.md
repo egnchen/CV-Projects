@@ -5,7 +5,9 @@ Team work with Rui'en Shen, Yuxuan Liu & Yajie Yu.
 ## Requirements
 
 > Task: Detect bottle caps in a picture. Ten bottle caps are presented in a picture with a certain background(pure color or some with complex texture) and your program should be able to detect all the caps along with their orientations(head, tail or side).
+> 
 > Basic requirements: 10 bottle caps are presented with different orientations, and pure color is provided as background. Detect all of them correctly. Your program should be wrapped in a GUI.
+> 
 > Bonus requirements: Your program should be able to detect bottle caps of different colors(10'), or different sizes & shapes(10'). Your program should be able to filter out various obstacles and other objects in the image(10'), or keep working with complex texture as background or tilted camera angles(20').
 
 ## Our solution
